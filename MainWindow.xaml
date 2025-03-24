@@ -1,0 +1,115 @@
+<Window x:Class="SortViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SortViewer"
+        mc:Ignorable="d"
+        Title="Sorting Algorithm Visualizer" Height="650" Width="1000"
+        Loaded="Window_Loaded">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Configuration and Controls -->
+        <Grid Grid.Row="0" Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
+                <TextBlock Text="Algorithm:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ComboBox x:Name="AlgorithmComboBox" Width="150" Margin="0,0,10,0" SelectionChanged="AlgorithmComboBox_SelectionChanged"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <TextBlock Text="Array Size:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBox x:Name="ArraySizeTextBox" Width="80" Margin="0,0,10,0" Text="50" PreviewTextInput="ArraySizeTextBox_PreviewTextInput"/>
+                
+                <TextBlock Text="Data Type:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <ComboBox x:Name="DataTypeComboBox" Width="120" Margin="0,0,10,0" SelectionChanged="DataTypeComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Random" IsSelected="True"/>
+                    <ComboBoxItem Content="Nearly Sorted"/>
+                    <ComboBoxItem Content="Reversed"/>
+                    <ComboBoxItem Content="Many Duplicates"/>
+                </ComboBox>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0,0,10,0">
+                <TextBlock Text="Speed:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Slider x:Name="SpeedSlider" Width="100" Minimum="1" Maximum="100000000" Value="500" 
+                        TickFrequency="10000000" IsSnapToTickEnabled="False" ValueChanged="SpeedSlider_ValueChanged"/>
+            </StackPanel>
+            
+            <Button Grid.Column="3" x:Name="GenerateButton" Content="Generate Data" Width="100" Margin="0,0,10,0" Click="GenerateButton_Click"/>
+            <Button Grid.Column="4" x:Name="StartButton" Content="Start" Width="80" Click="StartButton_Click"/>
+        </Grid>
+        
+        <!-- Visualization Canvas -->
+        <Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="1" Background="#F5F5F5">
+            <Canvas x:Name="VisualizationCanvas" Background="White" ClipToBounds="True"/>
+        </Border>
+        
+        <!-- Navigation Controls -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+            <Button x:Name="PreviousStepButton" Content="◀ Previous" Width="80" Margin="0,0,10,0" Click="PreviousStepButton_Click"/>
+            <Button x:Name="PauseResumeButton" Content="⏸ Pause" Width="80" Margin="0,0,10,0" Click="PauseResumeButton_Click"/>
+            <Button x:Name="NextStepButton" Content="Next ▶" Width="80" Margin="0,0,10,0" Click="NextStepButton_Click"/>
+            <Button x:Name="StopButton" Content="⏹ Stop" Width="80" Click="StopButton_Click"/>
+        </StackPanel>
+        
+        <!-- Information and Statistics -->
+        <Grid Grid.Row="3" Margin="0,0,0,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" BorderBrush="LightGray" BorderThickness="1" Margin="0,0,5,0" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Comparisons:" FontWeight="Bold"/>
+                    <TextBlock x:Name="ComparisonsTextBlock" Text="0"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="5,0,5,0" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Swaps:" FontWeight="Bold"/>
+                    <TextBlock x:Name="SwapsTextBlock" Text="0"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="2" BorderBrush="LightGray" BorderThickness="1" Margin="5,0,5,0" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Memory Usage:" FontWeight="Bold"/>
+                    <TextBlock x:Name="MemoryTextBlock" Text="0 KB"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="3" BorderBrush="LightGray" BorderThickness="1" Margin="5,0,5,0" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Execution Time:" FontWeight="Bold"/>
+                    <TextBlock x:Name="TimeTextBlock" Text="0 ms"/>
+                </StackPanel>
+            </Border>
+            
+            <Border Grid.Column="4" BorderBrush="LightGray" BorderThickness="1" Margin="5,0,0,0" Padding="5">
+                <StackPanel>
+                    <TextBlock Text="Status:" FontWeight="Bold"/>
+                    <TextBlock x:Name="StatusTextBlock" Text="Ready"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
