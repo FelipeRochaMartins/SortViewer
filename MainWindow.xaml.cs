@@ -35,8 +35,16 @@ namespace SortViewer
             _algorithms = new List<ISortAlgorithm>
             {
                 new BubbleSort(),
-                new QuickSort()
-                // Add other algorithms here
+                new QuickSort(),
+                new MergeSort(),
+                new HeapSort(),
+                new InsertionSort(),
+                new SelectionSort(),
+                new ShellSort(),
+                new RadixSort(),
+                new BucketSort(),
+                new CountingSort(),
+                new CocktailSort()
             };
         }
 
@@ -82,11 +90,11 @@ namespace SortViewer
             }
             
             // Limit array size to a reasonable maximum to prevent performance issues
-            if (arraySize > 10000)
+            if (arraySize > 1000)
             {
-                MessageBox.Show("Array size capped at 10000 to maintain performance.", "Size Adjusted", MessageBoxButton.OK, MessageBoxImage.Information);
-                arraySize = 10000;
-                ArraySizeTextBox.Text = "10000";
+                MessageBox.Show("Array size capped at 1000 to maintain performance.", "Size Adjusted", MessageBoxButton.OK, MessageBoxImage.Information);
+                arraySize = 1000;
+                ArraySizeTextBox.Text = "1000";
             }
             
             // Make sure a data type is selected
