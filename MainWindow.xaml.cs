@@ -277,11 +277,6 @@ namespace SortViewer
         }
 
         #region Event Handlers
-        
-        private void AlgorithmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Can implement algorithm-specific logic if needed
-        }
 
         private void ArraySizeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

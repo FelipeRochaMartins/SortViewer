@@ -27,7 +27,7 @@
             
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
                 <TextBlock Text="Algorithm:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <ComboBox x:Name="AlgorithmComboBox" Width="150" Margin="0,0,10,0" SelectionChanged="AlgorithmComboBox_SelectionChanged"/>
+                <ComboBox x:Name="AlgorithmComboBox" Width="150" Margin="0,0,10,0"/>
             </StackPanel>
             
             <StackPanel Grid.Column="1" Orientation="Horizontal">

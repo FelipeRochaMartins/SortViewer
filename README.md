@@ -4,7 +4,22 @@ SortViewer is an interactive WPF application designed to visualize sorting algor
 
 ## Features
 
-- **Multiple Sorting Algorithms**: Visualize different sorting algorithms (currently BubbleSort and QuickSort)
+- **Multiple Sorting Algorithms**: Visualize different sorting algorithms:
+  - **Comparison-based algorithms**:
+    - Bubble Sort: Simple algorithm that repeatedly steps through the list, comparing adjacent elements
+    - Selection Sort: Divides the input into a sorted and unsorted region, repeatedly selects the smallest element
+    - Insertion Sort: Builds the final sorted array one item at a time
+    - Quick Sort: Divide-and-conquer algorithm using a pivot element
+    - Merge Sort: Divide-and-conquer algorithm that divides, sorts, and merges subarrays
+    - Heap Sort: Uses a binary heap data structure to sort elements
+    - Shell Sort: Variation of insertion sort that allows the exchange of items that are far apart
+    - Cocktail Sort: Bidirectional bubble sort that sorts in both directions on each pass
+  - **Non-comparison-based algorithms**:
+    - Counting Sort: Uses counting of objects to sort an array of integers in a specific range
+    - Bucket Sort: Distributes elements into buckets and sorts each bucket individually
+    - Radix Sort: Sorts integers by processing individual digits
+  - **Search algorithm**:
+    - Binary Search: Efficiently finds elements in a sorted array by repeatedly dividing the search interval
 - **Data Types**: Test algorithms on various data distributions (Random, Nearly Sorted, Reversed, Many Duplicates)
 - **Custom Array Size**: Manually input array sizes up to 10,000 elements
 - **Adjustable Animation Speed**: Control visualization speed from very slow to ultra-fast
@@ -173,7 +188,7 @@ Services handle specific functionality domains:
 
 ## Future Improvements
 
-- Additional sorting algorithms (MergeSort, HeapSort, etc.)
+- Additional sorting algorithms (Tim Sort, Intro Sort, etc.)
 - Customizable colors and visualization styles
 - Sound effects for operations
 - Export performance data for analysis
@@ -288,4 +303,3 @@ if (_framesToSkip > 0)
 ```csharp
 double sliderPercentage = e.NewValue / 100000000;
 double speed = 1000 * Math.Pow(0.0000001/1000, sliderPercentage);
-```
