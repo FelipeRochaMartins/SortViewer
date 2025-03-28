@@ -26,6 +26,7 @@ namespace SortViewer.Services
         private double _animationSpeed = 500; // ms between frames (default)
         private bool _isRunning;
         private Action<SortingStatistics>? _onStatisticsUpdated;
+        private Action<SortingStep>? _onStepExecuted;
         private Action? _onVisualizationCompleted;
         private int _framesToSkip = 0; // Number of frames to skip for ultra-fast animation
 
@@ -71,6 +72,14 @@ namespace SortViewer.Services
         public void SetStatisticsCallback(Action<SortingStatistics> callback)
         {
             _onStatisticsUpdated = callback;
+        }
+
+        /// <summary>
+        /// Sets the callback for when a step is executed
+        /// </summary>
+        public void SetStepCallback(Action<SortingStep> callback)
+        {
+            _onStepExecuted = callback;
         }
 
         /// <summary>
@@ -242,50 +251,56 @@ namespace SortViewer.Services
         }
 
         /// <summary>
-        /// Draws the current state of the sorting on the Canvas
+        /// Draws a specific sorting step
         /// </summary>
         private void DrawStep(SortingStep step)
         {
-            // Clear previous visualization
             _canvas.Children.Clear();
             
-            // Calculate bar width and height scale
-            double barWidth = _canvas.ActualWidth / step.CurrentState.Length;
-            int maxValue = step.CurrentState.Max();
-            double heightScale = _canvas.ActualHeight / maxValue;
+            // Calculate metrics for canvas drawing
+            double canvasWidth = _canvas.ActualWidth;
+            double canvasHeight = _canvas.ActualHeight;
             
-            // Draw each bar
+            double elementWidth = canvasWidth / step.CurrentState.Length;
+            double maxValue = step.CurrentState.Max();
+            double scaleFactor = canvasHeight / maxValue;
+            
+            // Create rectangles for each element
             for (int i = 0; i < step.CurrentState.Length; i++)
             {
-                Rectangle bar = new Rectangle();
+                // Calculate height proportional to value
+                double height = step.CurrentState[i] * scaleFactor;
                 
-                // Set bar size
-                double height = step.CurrentState[i] * heightScale;
-                bar.Width = Math.Max(1, barWidth - 1);
-                bar.Height = Math.Max(1, height); // Ensure minimum height
+                // Create rectangle
+                var rect = new Rectangle
+                {
+                    Width = Math.Max(1, elementWidth - 1), // Ensure minimum width of 1px
+                    Height = height,
+                    Fill = GetBarColor(i, step)
+                };
                 
-                // Set color based on operation
-                bar.Fill = GetBarColor(i, step);
-                
-                // Position the bar (from bottom)
-                Canvas.SetLeft(bar, i * barWidth);
-                Canvas.SetBottom(bar, 0);
+                // Position rectangle
+                Canvas.SetLeft(rect, i * elementWidth);
+                Canvas.SetBottom(rect, 0);
                 
                 // Add to canvas
-                _canvas.Children.Add(bar);
+                _canvas.Children.Add(rect);
             }
             
             // Update statistics
             _onStatisticsUpdated?.Invoke(CalculateStatistics());
+            
+            // Notify step execution
+            _onStepExecuted?.Invoke(step);
         }
 
         /// <summary>
-        /// Determines the color of a bar based on the current operation
+        /// Gets the brush color for a bar based on the current operation
         /// </summary>
         private Brush GetBarColor(int index, SortingStep step)
         {
             // Default color
-            Brush defaultColor = Brushes.CornflowerBlue;
+            Brush defaultColor = new SolidColorBrush(Colors.CornflowerBlue);
             
             // Check if the index is being compared
             if (step.OperationType == OperationType.Comparison && 

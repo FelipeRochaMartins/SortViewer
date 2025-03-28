@@ -6,9 +6,9 @@ namespace SortViewer.Algorithms
     public class CountingSort : BaseSortAlgorithm
     {
         public override string Name => "Counting Sort";
-        public override string Description => "A non-comparison sorting algorithm that works by counting occurrences of each element and " +
-            "placing them in the correct order. Suitable for integers within a fixed range. " +
-            "Time complexity: O(n + k), where k is the range of input values";
+        public override string Description => "A non-comparison sorting algorithm that works by counting the number of objects that possess distinct key values.\n" +
+            "It then uses arithmetic to determine the positions of each key value in the output sequence.\n\n" +
+            "Time complexity: O(n + k) where k is the range of input";
 
         public override List<SortingStep> Sort(int[] data)
         {

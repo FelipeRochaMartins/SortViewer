@@ -6,9 +6,10 @@ namespace SortViewer.Algorithms
     public class SelectionSort : BaseSortAlgorithm
     {
         public override string Name => "Selection Sort";
-        public override string Description => "An in-place comparison sorting algorithm that divides the list into a sorted and an unsorted region, " +
-            "and repeatedly selects the smallest element from the unsorted region and moves it to the sorted region. " +
-            "Time complexity: O(n²)";
+        public override string Description => "A simple sorting algorithm that repeatedly finds the minimum element from the unsorted part\n" +
+            "and puts it at the beginning of the unsorted section.\n" +
+            "The algorithm maintains two subarrays: a sorted subarray and an unsorted subarray.\n\n" +
+            "Time complexity: O(n²) in all cases";
 
         public override List<SortingStep> Sort(int[] data)
         {
@@ -17,7 +18,7 @@ namespace SortViewer.Algorithms
 
             int n = array.Length;
 
-            steps.Add(CreateStep(array, OperationType.Initial, Array.Empty<int>(), Array.Empty<int>(), "Initial State"));
+            steps.Add(CreateStep(array, OperationType.Initial, Array.Empty<int>(), Array.Empty<int>(), "Initial state of the array"));
 
             for (int i = 0; i < n; i++)
             {
@@ -26,7 +27,7 @@ namespace SortViewer.Algorithms
                 for (int j = i + 1; j < n; j++)
                 {
                     int comparisonResult = array[j].CompareTo(array[lower]);
-                    steps.Add(CreateStep(array, OperationType.Comparison, [lower, j], Array.Empty<int>(), $"Comparing {array[lower]} and {array[j]}"));
+                    steps.Add(CreateStep(array, OperationType.Comparison, [lower, j], Array.Empty<int>(), $"Comparing elements at positions {lower} [{array[lower]}] and {j} [{array[j]}]"));
                     RaiseComparisonEvent(lower, j, comparisonResult, array);
                     
                     if (array[j] < array[lower])
@@ -37,13 +38,13 @@ namespace SortViewer.Algorithms
 
                 if (i != lower)
                 {
-                    steps.Add(CreateStep(array, OperationType.Swap, Array.Empty<int>(), [lower, i], $"Swapping {array[lower]} and {array[i]}"));
+                    steps.Add(CreateStep(array, OperationType.Swap, Array.Empty<int>(), [lower, i], $"Swapping elements: {array[lower]} ↔ {array[i]}"));
                     RaiseSwapEvent(lower, i, array);
                     Swap(array, lower, i);
                 }
             }
 
-            steps.Add(CreateStep(array, OperationType.Final, Array.Empty<int>(), Array.Empty<int>(), "Sorting completed"));
+            steps.Add(CreateStep(array, OperationType.Final, Array.Empty<int>(), Array.Empty<int>(), "Array is now sorted"));
 
             return steps;
         }

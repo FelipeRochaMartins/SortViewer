@@ -8,9 +8,10 @@ namespace SortViewer.Algorithms
     public class RadixSort : BaseSortAlgorithm
     {
         public override string Name => "Radix Sort (LSD)";
-        public override string Description => "A non-comparison sorting algorithm that sorts numbers digit by digit, " +
-            "using a stable subroutine like Counting Sort. " +
-            "Time complexity: O(nk), where k is the number of digits";
+        public override string Description => "A non-comparative sorting algorithm that processes the digits of each number from least to most significant.\n" +
+            "It distributes elements into buckets according to each digit's value and reconstructs the array after each pass.\n" +
+            "Particularly efficient for integers with limited number of digits.\n\n" +
+            "Time complexity: O(d * (n + k)) where d is the number of digits and k is the range of each digit";
 
         private List<SortingStep> _steps = new List<SortingStep>();
         private int[] _array = Array.Empty<int>();

@@ -1,12 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
-using System.Text.RegularExpressions;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using SortViewer.Algorithms;
-using SortViewer.Services;
 using SortViewer.Algorithms.Base;
+using SortViewer.Services;
+using SortViewer.Models;
+using System.Text.RegularExpressions;
 
 namespace SortViewer
 {
@@ -22,6 +32,7 @@ namespace SortViewer
         
         private int[] _currentData = Array.Empty<int>();
         private bool _isPaused;
+        private LogWindow? _logWindow;
         
         public MainWindow()
         {
@@ -38,14 +49,14 @@ namespace SortViewer
                 new CocktailSort(),
                 new SelectionSort(),
                 new InsertionSort(),
+                new BinarySort(),
                 new ShellSort(),
-                new QuickSort(),
                 new MergeSort(),
+                new QuickSort(),
                 new HeapSort(),
-                new RadixSort(),
-                new BucketSort(),
                 new CountingSort(),
-                new BinarySort()
+                new RadixSort(),
+                new BucketSort()
             };
         }
 
@@ -54,6 +65,7 @@ namespace SortViewer
             // Configure the visualizer
             _visualizerService = new SortingVisualizerService(VisualizationCanvas);
             _visualizerService.SetStatisticsCallback(UpdateStatistics);
+            _visualizerService.SetStepCallback(LogSortingStep);
             _visualizerService.SetCompletionCallback(() => 
             {
                 StatusTextBlock.Text = "Completed";
@@ -69,6 +81,7 @@ namespace SortViewer
             if (AlgorithmComboBox.Items.Count > 0)
             {
                 AlgorithmComboBox.SelectedIndex = 0;
+                UpdateAlgorithmDescription();
             }
             
             // Generate initial data
@@ -76,8 +89,72 @@ namespace SortViewer
             
             // Configure navigation controls
             EnableNavigationControls(false);
+            
+            // Set initial log panel state
+            _isPaused = false;
         }
 
+        private void UpdateAlgorithmDescription()
+        {
+            if (AlgorithmComboBox.SelectedIndex >= 0)
+            {
+                var selectedAlgorithm = _algorithms[AlgorithmComboBox.SelectedIndex];
+                AlgorithmNameText.Text = selectedAlgorithm.Name;
+                AlgorithmDescriptionText.Text = selectedAlgorithm.Description.Replace("\\n", Environment.NewLine);
+            }
+        }
+
+        private void AlgorithmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateAlgorithmDescription();
+        }
+
+        private void AlgorithmInfoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AlgorithmComboBox.SelectedIndex >= 0)
+            {
+                var selectedAlgorithm = _algorithms[AlgorithmComboBox.SelectedIndex];
+                
+                MessageBox.Show(
+                    selectedAlgorithm.Description.Replace("\\n", Environment.NewLine),
+                    $"{selectedAlgorithm.Name} - Description",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
+            }
+        }
+
+        private void LogSortingStep(SortingStep step)
+        {
+            // If log window exists (even if not visible), log the step
+            _logWindow?.LogSortingStep(step);
+        }
+        
+        private void LogButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Create the log window if it doesn't exist
+            if (_logWindow == null)
+            {
+                _logWindow = new LogWindow
+                {
+                    Owner = this,
+                    WindowStartupLocation = WindowStartupLocation.CenterOwner
+                };
+            }
+            
+            // Show the window (it might be hidden)
+            _logWindow.Show();
+            
+            // Disable the log button while the window is open
+            LogButton.IsEnabled = false;
+        }
+        
+        public void OnLogWindowClosed()
+        {
+            // Re-enable the log button when the log window is closed
+            LogButton.IsEnabled = true;
+        }
+        
         private void GenerateData()
         {
             if (AlgorithmComboBox.SelectedIndex < 0 || ArraySizeTextBox.Text == string.Empty)
@@ -207,7 +284,7 @@ namespace SortViewer
             StatusTextBlock.Text = $"Generated {_currentData.Length} data points";
         }
 
-        private void StartSorting()
+        private void StartVisualization()
         {
             if (_currentData == null || AlgorithmComboBox.SelectedIndex < 0)
                 return;
@@ -225,7 +302,7 @@ namespace SortViewer
             EnableControls(false);
             EnableNavigationControls(true);
             _isPaused = false;
-            PauseResumeButton.Content = "⏸ Pause";
+            UpdatePauseResumeButtonState();
         }
 
         private void UpdateStatistics(SortingStatistics statistics)
@@ -277,11 +354,18 @@ namespace SortViewer
             NextStepButton.IsEnabled = enable;
         }
 
+        private void UpdatePauseResumeButtonState()
+        {
+            // Update the button content based on the pause state
+            PauseResumeButton.Content = _isPaused ? "▶ Resume" : "⏸ Pause";
+        }
+
         #region Event Handlers
 
         private void ArraySizeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            NumberValidationTextBox(sender, e);
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void DataTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -317,7 +401,17 @@ namespace SortViewer
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            StartSorting();
+            // Clear the log when starting a new visualization
+            if (_logWindow != null)
+            {
+                _logWindow.ClearLog();
+            }
+            
+            // Reset to the beginning
+            _isPaused = false;
+            UpdatePauseResumeButtonState();
+            
+            StartVisualization();
         }
 
         private void PreviousStepButton_Click(object sender, RoutedEventArgs e)
@@ -327,7 +421,7 @@ namespace SortViewer
                 _visualizerService.PauseVisualization();
                 _visualizerService.PreviousStep();
                 _isPaused = true;
-                PauseResumeButton.Content = "▶ Resume";
+                UpdatePauseResumeButtonState();
             }
         }
 
@@ -338,12 +432,12 @@ namespace SortViewer
                 if (_isPaused)
                 {
                     _visualizerService.ResumeVisualization();
-                    PauseResumeButton.Content = "⏸ Pause";
+                    UpdatePauseResumeButtonState();
                 }
                 else
                 {
                     _visualizerService.PauseVisualization();
-                    PauseResumeButton.Content = "▶ Resume";
+                    UpdatePauseResumeButtonState();
                 }
                 
                 _isPaused = !_isPaused;
@@ -358,7 +452,7 @@ namespace SortViewer
                 EnableControls(true);
                 StatusTextBlock.Text = "Stopped";
                 _isPaused = false;
-                PauseResumeButton.Content = "⏸ Pause";
+                UpdatePauseResumeButtonState();
                 DrawInitialState();
             }
         }
@@ -370,7 +464,7 @@ namespace SortViewer
                 _visualizerService.PauseVisualization();
                 _visualizerService.NextStep();
                 _isPaused = true;
-                PauseResumeButton.Content = "▶ Resume";
+                UpdatePauseResumeButtonState();
             }
         }
         
@@ -383,6 +477,18 @@ namespace SortViewer
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            // Close log window when main window is closed
+            if (_logWindow != null)
+            {
+                _logWindow.Owner = null; // Remove owner to prevent callback
+                _logWindow.Close(); // Force close
+            }
+            
+            base.OnClosed(e);
         }
     }
 }

@@ -6,9 +6,10 @@ namespace SortViewer.Algorithms
     public class ShellSort : BaseSortAlgorithm
     {
         public override string Name => "Shell Sort";
-        public override string Description => "An optimization of Insertion Sort that allows exchanges of far-apart elements, " +
-            "by sorting elements at specific gaps and progressively reducing the gap until it becomes 1. " +
-            "Time complexity: O(n log² n) (depends on the gap sequence used)";
+        public override string Description => "A generalization of insertion sort that allows the exchange of items that are far apart.\n" +
+            "The algorithm starts by sorting pairs of elements far apart from each other, then progressively reduces the gap between elements.\n" +
+            "By the time the gap is reduced to 1, the array is almost sorted, making the final pass very efficient.\n\n" +
+            "Time complexity: O(n²) worst case, but can be much better depending on the gap sequence";
 
         public override List<SortingStep> Sort(int[] data)
         {
