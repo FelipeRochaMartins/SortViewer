@@ -288,13 +288,15 @@ namespace SortViewer.Services
             Brush defaultColor = Brushes.CornflowerBlue;
             
             // Check if the index is being compared
-            if (step.ComparedIndices != null && Array.IndexOf(step.ComparedIndices, index) >= 0)
+            if (step.OperationType == OperationType.Comparison && 
+                step.ComparedIndices != null && Array.IndexOf(step.ComparedIndices, index) >= 0)
             {
                 return Brushes.Gold;
             }
             
             // Check if the index is being swapped
-            if (step.SwappedIndices != null && Array.IndexOf(step.SwappedIndices, index) >= 0)
+            if (step.OperationType == OperationType.Swap && 
+                step.SwappedIndices != null && Array.IndexOf(step.SwappedIndices, index) >= 0)
             {
                 return Brushes.Red;
             }
@@ -304,6 +306,13 @@ namespace SortViewer.Services
                 step.ComparedIndices != null && Array.IndexOf(step.ComparedIndices, index) >= 0)
             {
                 return Brushes.Purple;
+            }
+            
+            // Check for Write operation (specific colors for write elements)
+            if (step.OperationType == OperationType.Write && 
+                step.ComparedIndices != null && Array.IndexOf(step.ComparedIndices, index) >= 0)
+            {
+                return Brushes.Orange;
             }
             
             // If it's the final state, all bars are green

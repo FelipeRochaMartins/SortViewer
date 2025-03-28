@@ -22,23 +22,19 @@ namespace SortViewer.Algorithms
 
             _steps.Add(CreateStep(_array, OperationType.Initial, Array.Empty<int>(), Array.Empty<int>(), "Initial state"));
 
-            // Build heap (rearrange array)
             _steps.Add(CreateStep(_array, OperationType.Read, Array.Empty<int>(), Array.Empty<int>(), "Building max heap"));
             for (int i = n / 2 - 1; i >= 0; i--)
             {
                 Heapify(n, i);
             }
 
-            // Extract elements from heap one by one
             _steps.Add(CreateStep(_array, OperationType.Read, Array.Empty<int>(), Array.Empty<int>(), "Heap built, extracting elements"));
             for (int i = n - 1; i > 0; i--)
             {
-                // Move current root (maximum) to end
                 _steps.Add(CreateStep(_array, OperationType.Swap, Array.Empty<int>(), [0, i], $"Moving max element {_array[0]} to position {i}"));
                 Swap(_array, 0, i);
                 RaiseSwapEvent(0, i, _array);
 
-                // Call heapify on the reduced heap
                 Heapify(i, 0);
             }
 
@@ -49,16 +45,14 @@ namespace SortViewer.Algorithms
 
         private void Heapify(int heapSize, int rootIndex)
         {
-            int largest = rootIndex;     // Initialize largest as root
-            int leftChild = 2 * rootIndex + 1;  // Left child
-            int rightChild = 2 * rootIndex + 2; // Right child
+            int largest = rootIndex;
+            int leftChild = 2 * rootIndex + 1;
+            int rightChild = 2 * rootIndex + 2;
 
-            // If left child is larger than root
             if (leftChild < heapSize)
             {
                 int comparisonResult = _array[leftChild].CompareTo(_array[largest]);
-                _steps.Add(CreateStep(_array, OperationType.Comparison, [leftChild, largest], Array.Empty<int>(), 
-                    $"Comparing left child {_array[leftChild]} with largest {_array[largest]}"));
+                _steps.Add(CreateStep(_array, OperationType.Comparison, [leftChild, largest], Array.Empty<int>(), $"Comparing left child {_array[leftChild]} with largest {_array[largest]}"));
                 RaiseComparisonEvent(leftChild, largest, comparisonResult, _array);
                 
                 if (comparisonResult > 0)
@@ -67,12 +61,10 @@ namespace SortViewer.Algorithms
                 }
             }
 
-            // If right child is larger than largest so far
             if (rightChild < heapSize)
             {
                 int comparisonResult = _array[rightChild].CompareTo(_array[largest]);
-                _steps.Add(CreateStep(_array, OperationType.Comparison, [rightChild, largest], Array.Empty<int>(), 
-                    $"Comparing right child {_array[rightChild]} with largest {_array[largest]}"));
+                _steps.Add(CreateStep(_array, OperationType.Comparison, [rightChild, largest], Array.Empty<int>(), $"Comparing right child {_array[rightChild]} with largest {_array[largest]}"));
                 RaiseComparisonEvent(rightChild, largest, comparisonResult, _array);
                 
                 if (comparisonResult > 0)
@@ -81,15 +73,12 @@ namespace SortViewer.Algorithms
                 }
             }
 
-            // If largest is not root
             if (largest != rootIndex)
             {
-                _steps.Add(CreateStep(_array, OperationType.Swap, Array.Empty<int>(), [rootIndex, largest], 
-                    $"Swapping {_array[rootIndex]} with {_array[largest]}"));
+                _steps.Add(CreateStep(_array, OperationType.Swap, Array.Empty<int>(), [rootIndex, largest], $"Swapping {_array[rootIndex]} with {_array[largest]}"));
                 Swap(_array, rootIndex, largest);
                 RaiseSwapEvent(rootIndex, largest, _array);
 
-                // Recursively heapify the affected sub-tree
                 Heapify(heapSize, largest);
             }
         }

@@ -27,8 +27,7 @@ namespace SortViewer.Algorithms
             do
             {
                 swapped = false;
-                steps.Add(CreateStep(array, OperationType.Read, Array.Empty<int>(), Array.Empty<int>(), 
-                    $"Forward pass from index {start} to {end}"));
+                steps.Add(CreateStep(array, OperationType.Read, Array.Empty<int>(), Array.Empty<int>(), $"Forward pass from index {start} to {end}"));
 
                 for (int i = start; i < end; i++)
                 {
@@ -50,7 +49,6 @@ namespace SortViewer.Algorithms
                     break;
                 }
 
-                // Decrease the end boundary as the largest element is now at the end
                 end--;
 
                 swapped = false;
@@ -72,7 +70,6 @@ namespace SortViewer.Algorithms
                     }
                 }
 
-                // Increase the start boundary as the smallest element is now at the beginning
                 start++;
 
             } while (swapped && start <= end);

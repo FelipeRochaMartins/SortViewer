@@ -23,6 +23,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,10,0">
@@ -51,6 +52,57 @@
             
             <Button Grid.Column="3" x:Name="GenerateButton" Content="Generate Data" Width="100" Margin="0,0,10,0" Click="GenerateButton_Click"/>
             <Button Grid.Column="4" x:Name="StartButton" Content="Start" Width="80" Click="StartButton_Click"/>
+            
+            <!-- Color legend info button - moved to a separate position -->
+            <Button Grid.Column="5" Width="20" Height="20" Margin="10,0,0,0" 
+                    Background="#E6F3FF" BorderBrush="#A0CFFF" BorderThickness="1" 
+                    Content="i" FontWeight="Bold" Foreground="#0078D7" VerticalAlignment="Center"
+                    Cursor="Help" IsHitTestVisible="True">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+                <Button.ToolTip>
+                    <ToolTip>
+                        <StackPanel>
+                            <TextBlock Text="Color Legend:" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Rectangle Grid.Row="0" Grid.Column="0" Fill="CornflowerBlue" Height="15" Width="15"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="Default - Not currently involved in operation" Margin="5,0,0,5"/>
+                                
+                                <Rectangle Grid.Row="1" Grid.Column="0" Fill="Gold" Height="15" Width="15"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="Comparing - Elements being compared" Margin="5,0,0,5"/>
+                                
+                                <Rectangle Grid.Row="2" Grid.Column="0" Fill="Red" Height="15" Width="15"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" Text="Swapping - Elements being swapped" Margin="5,0,0,5"/>
+                                
+                                <Rectangle Grid.Row="3" Grid.Column="0" Fill="Orange" Height="15" Width="15"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" Text="Writing - Elements being written/moved" Margin="5,0,0,5"/>
+                                
+                                <Rectangle Grid.Row="4" Grid.Column="0" Fill="Purple" Height="15" Width="15"/>
+                                <TextBlock Grid.Row="4" Grid.Column="1" Text="Reading - Elements being read" Margin="5,0,0,5"/>
+                                
+                                <Rectangle Grid.Row="5" Grid.Column="0" Fill="Green" Height="15" Width="15"/>
+                                <TextBlock Grid.Row="5" Grid.Column="1" Text="Final - Sorting completed" Margin="5,0,0,5"/>
+                            </Grid>
+                        </StackPanel>
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
         </Grid>
         
         <!-- Visualization Canvas -->

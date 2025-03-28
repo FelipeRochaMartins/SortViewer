@@ -88,7 +88,7 @@ namespace SortViewer.Services
                     swaps++;
                 }
             }
-            
+
             // Calculate execution time
             TimeSpan executionTime = TimeSpan.Zero;
             if (steps.Count > 0)

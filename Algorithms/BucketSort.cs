@@ -1,9 +1,12 @@
 ﻿using SortViewer.Models;
 using SortViewer.Algorithms.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SortViewer.Algorithms
 {
-    class BucketSort : BaseSortAlgorithm
+    public class BucketSort : BaseSortAlgorithm
     {
         public override string Name => "Bucket Sort";
         public override string Description => "A sorting algorithm that distributes elements into buckets, sorts each bucket individually, " +

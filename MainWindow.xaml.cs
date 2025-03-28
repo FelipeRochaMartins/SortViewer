@@ -35,16 +35,17 @@ namespace SortViewer
             _algorithms = new List<ISortAlgorithm>
             {
                 new BubbleSort(),
+                new CocktailSort(),
+                new SelectionSort(),
+                new InsertionSort(),
+                new ShellSort(),
                 new QuickSort(),
                 new MergeSort(),
                 new HeapSort(),
-                new InsertionSort(),
-                new SelectionSort(),
-                new ShellSort(),
                 new RadixSort(),
                 new BucketSort(),
                 new CountingSort(),
-                new CocktailSort()
+                new BinarySort()
             };
         }
 

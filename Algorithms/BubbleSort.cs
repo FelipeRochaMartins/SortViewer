@@ -18,7 +18,6 @@ namespace SortViewer.Algorithms
             
             int n = array.Length;
             
-            // Add initial state
             steps.Add(CreateStep(array, OperationType.Read, Array.Empty<int>(), Array.Empty<int>(), "Initial state"));
             
             for (int i = 0; i < n - 1; i++)
@@ -27,29 +26,23 @@ namespace SortViewer.Algorithms
                 
                 for (int j = 0; j < n - i - 1; j++)
                 {
-                    // Compare adjacent elements
                     int comparisonResult = array[j].CompareTo(array[j + 1]);
-                    steps.Add(CreateStep(array, OperationType.Comparison, 
-                        new int[] { j, j + 1 }, Array.Empty<int>(), $"Comparing {array[j]} and {array[j + 1]}"));
+                    steps.Add(CreateStep(array, OperationType.Comparison, new int[] { j, j + 1 }, Array.Empty<int>(), $"Comparing {array[j]} and {array[j + 1]}"));
                     RaiseComparisonEvent(j, j + 1, comparisonResult, array);
                     
                     if (comparisonResult > 0)
                     {
-                        // Swap if necessary
                         Swap(array, j, j + 1);
-                        steps.Add(CreateStep(array, OperationType.Swap, 
-                            Array.Empty<int>(), new int[] { j, j + 1 }, $"Swapping {array[j + 1]} and {array[j]}"));
+                        steps.Add(CreateStep(array, OperationType.Swap, Array.Empty<int>(), new int[] { j, j + 1 }, $"Swapping {array[j + 1]} and {array[j]}"));
                         RaiseSwapEvent(j, j + 1, array);
                         swapped = true;
                     }
                 }
                 
-                // If no swaps were made in this pass, the array is sorted
                 if (!swapped)
                     break;
             }
             
-            // Add final state
             steps.Add(CreateStep(array, OperationType.Final, Array.Empty<int>(), Array.Empty<int>(), "Sorting completed"));
             
             return steps;
