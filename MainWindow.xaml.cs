@@ -109,21 +109,6 @@ namespace SortViewer
             UpdateAlgorithmDescription();
         }
 
-        private void AlgorithmInfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (AlgorithmComboBox.SelectedIndex >= 0)
-            {
-                var selectedAlgorithm = _algorithms[AlgorithmComboBox.SelectedIndex];
-                
-                MessageBox.Show(
-                    selectedAlgorithm.Description.Replace("\\n", Environment.NewLine),
-                    $"{selectedAlgorithm.Name} - Description",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information
-                );
-            }
-        }
-
         private void LogSortingStep(SortingStep step)
         {
             // If log window exists (even if not visible), log the step
@@ -268,6 +253,9 @@ namespace SortViewer
                 
                 // Set color
                 bar.Fill = Brushes.CornflowerBlue;
+                
+                // Add tooltip to show value and index
+                bar.ToolTip = new ToolTip { Content = $"Index: {i}, Value: {_currentData[i]}" };
                 
                 // Position the bar
                 Canvas.SetLeft(bar, i * barWidth);

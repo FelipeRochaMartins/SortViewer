@@ -39,16 +39,14 @@
                     <ComboBox x:Name="AlgorithmComboBox" Width="150" Margin="0,0,5,0" SelectionChanged="AlgorithmComboBox_SelectionChanged"/>
                     
                     <!-- Algorithm Info Button -->
-                    <Button x:Name="AlgorithmInfoButton" Width="20" Height="20" 
+                    <Border x:Name="AlgorithmInfoButton" Width="20" Height="20" 
                             Background="#E6F3FF" BorderBrush="#A0CFFF" BorderThickness="1" 
-                            Content="i" FontWeight="Bold" Foreground="#0078D7" VerticalAlignment="Center"
-                            Cursor="Help" Click="AlgorithmInfoButton_Click">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="10"/>
-                            </Style>
-                        </Button.Resources>
-                        <Button.ToolTip>
+                            CornerRadius="10"
+                            VerticalAlignment="Center"
+                            Cursor="Help">
+                        <TextBlock Text="i" FontWeight="Bold" Foreground="#0078D7" 
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border.ToolTip>
                             <ToolTip x:Name="AlgorithmToolTip">
                                 <StackPanel>
                                     <TextBlock x:Name="AlgorithmNameText" Text="Algorithm" FontWeight="Bold" Margin="0,0,0,5"/>
@@ -56,8 +54,8 @@
                                                TextWrapping="Wrap" MaxWidth="300"/>
                                 </StackPanel>
                             </ToolTip>
-                        </Button.ToolTip>
-                    </Button>
+                        </Border.ToolTip>
+                    </Border>
                 </StackPanel>
                 
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -83,16 +81,14 @@
                 <Button Grid.Column="4" x:Name="StartButton" Content="Start" Width="80" Margin="0,0,10,0" Click="StartButton_Click"/>
                 
                 <!-- Color legend info button -->
-                <Button Grid.Column="5" Width="20" Height="20" 
+                <Border Grid.Column="5" Width="20" Height="20" 
                         Background="#E6F3FF" BorderBrush="#A0CFFF" BorderThickness="1" 
-                        Content="i" FontWeight="Bold" Foreground="#0078D7" VerticalAlignment="Center"
-                        Cursor="Help" IsHitTestVisible="True">
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                    <Button.ToolTip>
+                        CornerRadius="10"
+                        VerticalAlignment="Center"
+                        Cursor="Help">
+                    <TextBlock Text="i" FontWeight="Bold" Foreground="#0078D7" 
+                              HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border.ToolTip>
                         <ToolTip>
                             <StackPanel>
                                 <TextBlock Text="Color Legend:" FontWeight="Bold" Margin="0,0,0,5"/>
@@ -130,8 +126,8 @@
                                 </Grid>
                             </StackPanel>
                         </ToolTip>
-                    </Button.ToolTip>
-                </Button>
+                    </Border.ToolTip>
+                </Border>
             </Grid>
             
             <!-- Visualization Canvas -->

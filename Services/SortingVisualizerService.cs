@@ -279,6 +279,9 @@ namespace SortViewer.Services
                     Fill = GetBarColor(i, step)
                 };
                 
+                // Add tooltip to show value and index
+                rect.ToolTip = new ToolTip { Content = $"Index: {i}, Value: {step.CurrentState[i]}" };
+                
                 // Position rectangle
                 Canvas.SetLeft(rect, i * elementWidth);
                 Canvas.SetBottom(rect, 0);

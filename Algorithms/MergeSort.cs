@@ -47,7 +47,26 @@ namespace SortViewer.Algorithms
 
         private void Merge(int left, int middle, int right)
         {
-            _steps.Add(CreateStep(_array, OperationType.Read, new int[] { left, right }, Array.Empty<int>(), $"Merging subarrays: indexes {left} to {middle} with indexes {middle + 1} to {right}"));
+            string mergeMessage;
+            
+            if (left == middle && middle + 1 == right) {
+                // Special case for merging single elements
+                mergeMessage = $"Merging individual elements at positions {left} [{_array[left]}] and {right} [{_array[right]}]";
+            } 
+            else if (left == middle) {
+                // Special case for left subarray with only one element
+                mergeMessage = $"Merging element at position {left} [{_array[left]}] with subarray from positions {middle+1} to {right}";
+            }
+            else if (middle + 1 == right) {
+                // Special case for right subarray with only one element
+                mergeMessage = $"Merging subarray from positions {left} to {middle} with element at position {right} [{_array[right]}]";
+            }
+            else {
+                // Normal case - merging two subarrays
+                mergeMessage = $"Merging subarrays: positions {left} to {middle} with positions {middle + 1} to {right}";
+            }
+            
+            _steps.Add(CreateStep(_array, OperationType.Read, new int[] { left, right }, Array.Empty<int>(), mergeMessage));
 
             int n1 = middle - left + 1;
             int n2 = right - middle;
