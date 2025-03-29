@@ -30,6 +30,28 @@ SortViewer is an interactive WPF application designed to visualize sorting algor
 - **Step Controls**: Forward, backward, pause, and stop controls for detailed analysis
 - **Performance Statistics**: Real-time statistics on comparisons, swaps, execution time, and memory usage
 
+## Installation
+
+### Option 1: Windows Installer (Recommended)
+
+1. Go to the [Releases](https://github.com/FelipeRochaMartins/SortViewer/releases) page of this repository
+2. Download the latest `SortViewerInstaller.msi` file
+3. Run the installer and follow the on-screen instructions
+4. Launch Sort Viewer from your desktop or Start menu
+
+The installer will automatically:
+- Install all necessary files
+- Create desktop and Start menu shortcuts
+- Configure file associations
+- Install the .NET Runtime if needed
+
+### Option 2: Manual Installation
+
+1. Ensure you have .NET 8.0 Runtime installed
+2. Clone this repository
+3. Build the solution in Visual Studio
+4. Run the executable from the build output folder
+
 ## Application Architecture
 
 SortViewer follows the MVVM (Model-View-ViewModel) architecture pattern, with a clear separation of concerns:
@@ -321,7 +343,7 @@ These colors help you track the algorithm's progress and understand its mechanic
 
 ## Technical Requirements
 
-- .NET Framework 4.7.2 or higher
+- .NET Framework 8.0 or higher
 - Windows 7 or higher
 - WPF support
 
