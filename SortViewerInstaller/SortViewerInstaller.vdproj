@@ -15,7 +15,19 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_139BB7A9C2BA491C8EECE95A475CC86F"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_458330500A034FE784BDCC581D78A5F1"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_56FC255A7AA84A8393BC80B8359618FE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -28,12 +40,6 @@
         "Entry"
         {
         "MsmKey" = "8:_CB570003BC144ADC8AAC23817711A9AD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D4116C84942A48178357D19CE9171509"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -55,6 +61,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -123,6 +145,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_139BB7A9C2BA491C8EECE95A475CC86F"
+            {
+            "SourcePath" = "8:..\\bin\\Release\\net8.0-windows\\SortViewer.exe"
+            "TargetName" = "8:SortViewer.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_458330500A034FE784BDCC581D78A5F1"
             {
             "SourcePath" = "8:..\\README.md"
@@ -143,7 +185,7 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D4116C84942A48178357D19CE9171509"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_56FC255A7AA84A8393BC80B8359618FE"
             {
             "SourcePath" = "8:..\\Assets\\SortIcon.ico"
             "TargetName" = "8:SortIcon.ico"
@@ -229,9 +271,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SortViewerInstaller"
+        "ProductName" = "8:Sort Viewer"
         "ProductCode" = "8:{1E67638A-31E5-4587-A7C1-7942D13BF68F}"
-        "PackageCode" = "8:{566F7D0E-989C-4346-9F00-7B7AA473D468}"
+        "PackageCode" = "8:{EEF2F03F-7547-4CC1-8385-A3255BAF3BC3}"
         "UpgradeCode" = "8:{A3C9D0C6-E4C6-427F-85E7-C54D2DACAAF7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -248,7 +290,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:A visual tool for understanding sorting algorithms"
         "ARPURLINFOABOUT" = "8:https://github.com/FelipeRochaMartins/SortViewer"
-        "ARPPRODUCTICON" = "8:_D4116C84942A48178357D19CE9171509"
+        "ARPPRODUCTICON" = "8:_56FC255A7AA84A8393BC80B8359618FE"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -351,7 +393,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_51C7229C1CBD444B8E828E3A4BD26BD6"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_3E30A60A2D714CBFA89048E78B3F6BD7"
             {
             "Name" = "8:Sort Viewer"
             "Arguments" = "8:"
@@ -359,38 +401,38 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_CB570003BC144ADC8AAC23817711A9AD"
-            "Folder" = "8:_001ECC11CF1A459EB9CD0E9610EE3AC9"
-            "WorkingFolder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
-            "Icon" = "8:_D4116C84942A48178357D19CE9171509"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7B59501611BC4BBABBEAE6597BA268AB"
-            {
-            "Name" = "8:Sort Viewer"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_CB570003BC144ADC8AAC23817711A9AD"
-            "Folder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
-            "WorkingFolder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
-            "Icon" = "8:_D4116C84942A48178357D19CE9171509"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_E7B05CA038C340459E1F870982611B91"
-            {
-            "Name" = "8:Sort Viewer"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_CB570003BC144ADC8AAC23817711A9AD"
+            "Target" = "8:_139BB7A9C2BA491C8EECE95A475CC86F"
             "Folder" = "8:_A92C2EA7083E4F6D9CDEA57AF75DEB2B"
             "WorkingFolder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
-            "Icon" = "8:_D4116C84942A48178357D19CE9171509"
+            "Icon" = "8:_56FC255A7AA84A8393BC80B8359618FE"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_C82D414551D5469EBDAE5874D09B2F49"
+            {
+            "Name" = "8:Sort Viewer"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_139BB7A9C2BA491C8EECE95A475CC86F"
+            "Folder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
+            "WorkingFolder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
+            "Icon" = "8:_56FC255A7AA84A8393BC80B8359618FE"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_F2BFF1CCE0FC44AFB2C3F8B6A6668B0C"
+            {
+            "Name" = "8:Sort Viewer"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_139BB7A9C2BA491C8EECE95A475CC86F"
+            "Folder" = "8:_001ECC11CF1A459EB9CD0E9610EE3AC9"
+            "WorkingFolder" = "8:_F89E55131C1A4C85846A03F981FFC1E0"
+            "Icon" = "8:_56FC255A7AA84A8393BC80B8359618FE"
             "Feature" = "8:"
             }
         }
